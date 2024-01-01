@@ -10,7 +10,7 @@ namespace productManagement.domain.aggregates.product
 {
     public sealed class Product : EntityWithGuid, IAggregateRoot<Product>
     {
-        public Product(string description, StatusEntityEnum status, DateOnly? manufacturingDate, DateOnly? expirationDate, Guid? supplierId)
+        private Product(string description, StatusEntityEnum status, DateOnly? manufacturingDate, DateOnly? expirationDate, Guid? supplierId)
         {
             Id = Guid.NewGuid();
             Description = description;

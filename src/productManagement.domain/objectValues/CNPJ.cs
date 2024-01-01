@@ -1,7 +1,6 @@
 ﻿using productManagement.domain.aggregates.supplier.validations;
 using productManagement.domain.shared.seedWork.exceptions;
 using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace productManagement.domain.objectValues
 {

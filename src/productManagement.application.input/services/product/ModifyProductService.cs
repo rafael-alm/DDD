@@ -29,7 +29,7 @@ namespace productManagement.application.input.services.product
 
             productAppRepository.Update(product);
 
-            var ddd = await dbContext.SaveChangesAsync(cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

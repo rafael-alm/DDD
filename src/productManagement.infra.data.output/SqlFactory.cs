@@ -6,7 +6,7 @@ namespace productManagement.infra.data.output
     public sealed class SqlFactory
     {
         public IDbConnection SqlConnection()
-            => new SqlConnection("Data Source=localhost;Initial Catalog=DBProductManagement;Integrated Security=False;trusted_connection=true;encrypt=false;User Id=sa; Password=desenvol;");
+            => new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DB_ProductManagement;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     }
 }

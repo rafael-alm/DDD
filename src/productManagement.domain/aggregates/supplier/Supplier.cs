@@ -10,7 +10,6 @@ namespace productManagement.domain.aggregates.product
 {
     public sealed class Supplier : EntityWithGuid, IAggregateRoot<Supplier>
     {
-        private Supplier() { }
         private Supplier(string description, CNPJ cnpj)
         {
             Id = Guid.NewGuid();
