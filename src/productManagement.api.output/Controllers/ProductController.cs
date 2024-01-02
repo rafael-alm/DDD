@@ -32,7 +32,7 @@ namespace ProductManagement.Api.Output.Controllers
         [ProducesResponseType(typeof(ApiResponse<IPaging<ProductForPagingDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Research([FromServices] IReadProductRepository repository, CancellationToken cancellationToken,
-                                                  [FromRoute] int page = 1, [FromRoute] int recordsPerPage = 10, [FromQuery] string? supplierDescription = default, 
+                                                  [FromQuery] int page = 1, [FromQuery] int recordsPerPage = 10, [FromQuery] string? supplierDescription = default, 
                                                   [FromQuery] int? code = default, [FromQuery] string? description = default, [FromQuery] int? status = default, 
                                                   [FromQuery] DateTime? manufacturingDate = default, [FromQuery] DateTime? expirationDate = default)
         {

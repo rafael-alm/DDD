@@ -29,7 +29,7 @@ namespace productManagement.infra.data.output.seedWork
                 filter.Page = 1;
 
             if (filter.RecordsPerPage < 1)
-                filter.Page = 1;
+                filter.RecordsPerPage = 1;
 
             var queryWithPaging = query + order + $"OFFSET (@{nameof(filter.Page)} - 1) * @{nameof(filter.RecordsPerPage)} ROWS FETCH NEXT @{nameof(filter.RecordsPerPage)} ROWS ONLY";
             var result = await connection.QueryAsync(queryWithPaging, filter).WaitAsync(cancellationToken);
