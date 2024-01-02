@@ -2,13 +2,11 @@
 {
     public readonly struct ReturnProductCreation
     {
-        public ReturnProductCreation(Guid id, int code)
+        public ReturnProductCreation(Guid id)
         {
             Id = id;
-            Code = code;
         }
 
         public Guid Id { get; }
-        public int Code { get; }
     }
 }

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\productManagement.domain.enumeration\productManagement.domain.shared.csproj" />
     <ProjectReference Include="..\productManagement.domain.shared\productManagement.domain.shared.csproj" />
   </ItemGroup>
 

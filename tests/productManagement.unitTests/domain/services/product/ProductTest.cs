@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using productManagement.domain.aggregates.product.commands;
 using productManagement.domain.aggregates.product.handlers;
 using productManagement.domain.aggregates.product.validations;

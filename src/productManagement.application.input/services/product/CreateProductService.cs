@@ -31,7 +31,7 @@ namespace productManagement.application.input.services.product
             await dbContext.SaveChangesAsync(cancellationToken);
             await dbContext.Commit();
 
-            return new ReturnProductCreation(product!.Id, product.Code);
+            return new ReturnProductCreation(product!.Id);
         }
     }
 }

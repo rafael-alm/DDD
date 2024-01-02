@@ -25,9 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\productManagement.domain.shared\productManagement.domain.shared.csproj" />
-    <ProjectReference Include="..\src\productManagement.domain\productManagement.domain.csproj" />
-    <ProjectReference Include="..\src\productManagement.infra.data.efCore\productManagement.infra.data.input.csproj" />
+    <ProjectReference Include="..\..\src\productManagement.domain.shared\productManagement.domain.shared.csproj" />
+    <ProjectReference Include="..\..\src\productManagement.infra.data.efCore\productManagement.infra.data.input.csproj" />
   </ItemGroup>
 
 </Project>

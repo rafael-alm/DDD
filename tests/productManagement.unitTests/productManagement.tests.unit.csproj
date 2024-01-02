@@ -29,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\productManagement.tests.common\productManagement.tests.common.csproj" />
     <ProjectReference Include="..\..\src\productManagement.domain.shared\productManagement.domain.shared.csproj" />
     <ProjectReference Include="..\..\src\productManagement.domain\productManagement.domain.csproj" />
+    <ProjectReference Include="..\productManagement.tests.common\productManagement.tests.common.csproj" />
   </ItemGroup>
 
 </Project>
