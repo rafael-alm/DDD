@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using productManagement.application.input.seedWork.repository;
 using productManagement.application.input.services.supplier.interfaces;
 using productManagement.domain.aggregates.product;
 using productManagement.domain.aggregates.supplier;
@@ -13,14 +12,13 @@ namespace productManagement.infra.data.input.aggregates
     public sealed class SupplierRepository : ISupplierRepository, ISupplierAppRepository
     {
         private readonly ContextProductManagement context;
+        private readonly DbSet<SupplierModel> suppliers;
         private readonly IMapper mapper;
 
-        private DbSet<SupplierModel> suppliers
-            => context.Set<SupplierModel>();
-
-        public SupplierRepository(IDbContext context, IMapper mapper)
+        public SupplierRepository(ContextProductManagement context, IMapper mapper)
         {
-            this.context = context as ContextProductManagement;
+            this.context = context;
+            this.suppliers = context.Set<SupplierModel>();
             this.mapper = mapper;
         }
 
@@ -39,9 +37,9 @@ namespace productManagement.infra.data.input.aggregates
             return mapper.Map<Supplier>(supplierModel);
         }
 
-        async void ISupplierAppRepository.Update(Supplier entity)
+        void ISupplierAppRepository.Update(Supplier entity)
         {
-            var supplierModel = await suppliers.SingleAsync(x => x.Id == entity.Id);
+            var supplierModel = suppliers.Single(x => x.Id == entity.Id);
             supplierModel = mapper.Map(entity, supplierModel);
             suppliers.Update(supplierModel);
 

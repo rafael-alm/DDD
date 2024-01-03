@@ -11,14 +11,14 @@ namespace productManagement.infra.data.input.aggregates
     public class ProductRepository : IProductAppRepository
     {
         protected readonly ContextProductManagement context;
+        private DbSet<ProductModel> products;
         private readonly IMapper mapper;
 
-        private DbSet<ProductModel> products
-            => context.Set<ProductModel>();
 
-        public ProductRepository(IDbContext context, IMapper mapper)
+        public ProductRepository(ContextProductManagement context, IMapper mapper)
         {
-            this.context = context as ContextProductManagement;
+            this.context = context;
+            this.products = context.Set<ProductModel>();
             this.mapper = mapper;
         }
 
@@ -34,9 +34,9 @@ namespace productManagement.infra.data.input.aggregates
             return mapper.Map<Product>(productModel);
         }
 
-        async void IProductAppRepository.Update(Product entity)
+        void IProductAppRepository.Update(Product entity)
         {
-            var productModel = await products.SingleAsync(x => x.Id == entity.Id);
+            var productModel = products.Single(x => x.Id == entity.Id);
             productModel = mapper.Map(entity, productModel);
 
             products.Update(productModel);

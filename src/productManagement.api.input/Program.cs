@@ -18,19 +18,15 @@ builder.Services.AddControllers();
 builder.Services.AddAndConfigureControllers();
 builder.Services.AddAutoMapperConfiguration();
 builder.Services.AddDbContext<ContextProductManagement>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ContextProductManagement")));
-
-builder.Services.AddScoped<IDbContext, ContextProductManagement>();
-
+builder.Services.AddScoped<IDbContext, UnitOfWork>();
 builder.Services.AddScoped<ICreateSupplierService, CreateSupplierService>();
 builder.Services.AddScoped<IModifySupplierService, ModifySupplierService>();
 builder.Services.AddScoped<ISupplierAppRepository, SupplierRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
-
 builder.Services.AddScoped<ICreateProductService, CreateProductService>();
 builder.Services.AddScoped<IModifyProductService, ModifyProductService>();
 builder.Services.AddScoped<IProductAppRepository, ProductRepository>();
 builder.Services.AddScoped<IInactivateProductService, InactivateProductService>();
-
 
 var app = builder.Build();
 

@@ -5,7 +5,7 @@ using productManagement.infra.data.input.entityTypeConfiguration.models;
 
 namespace productManagement.infra.data.input
 {
-    public class ContextProductManagement : DbContext, IDbContext, IAsyncDisposable
+    public class ContextProductManagement : DbContext, IAsyncDisposable
     {
         public bool HasTransaction { get; private set; }
 
