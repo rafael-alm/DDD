@@ -7,6 +7,7 @@ using productManagement.domain.aggregates.product;
 using productManagement.domain.aggregates.product.commands;
 using productManagement.domain.aggregates.product.handlers;
 using productManagement.domain.shared.seedWork.notification;
+using productManagement.infra.data.input;
 using productManagement.infra.data.input.aggregates;
 
 namespace productManagement.tests.common.fixture
@@ -79,12 +80,12 @@ namespace productManagement.tests.common.fixture
         public Product GetValidProductWithBasicData()
             => HandlerCreateProduct.New(GetValidCreateProductCommandWithBasicData(), Notification.New()).Execute()!;
 
-        public async Task<ReturnProductCreation> CreateProductInDBContext(IDbContext dbContex, IMapper mapper, CreateProductCommand validCreateProductCommand)
-        {
-            var repsitory = new ProductRepository(dbContex, mapper);
-            ICreateProductService createProductService = new CreateProductService(dbContex, repsitory);
+        //public async Task<ReturnProductCreation> CreateProductInDBContext(IDbContext dbContex, IMapper mapper, CreateProductCommand validCreateProductCommand)
+        //{
+        //    var repsitory = new ProductRepository(dbContex, mapper);
+        //    ICreateProductService createProductService = new CreateProductService(dbContex, repsitory);
 
-            return await createProductService.Execute(validCreateProductCommand, CancellationToken.None);
-        }
+        //    return await createProductService.Execute(validCreateProductCommand, CancellationToken.None);
+        //}
     }
 }

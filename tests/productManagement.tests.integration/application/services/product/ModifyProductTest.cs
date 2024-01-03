@@ -31,10 +31,13 @@ namespace productManagement.tests.integration.application.services.product
         public async void ValidModification()
         {
             var dbContex = TestContextProductManagement.New();
-            var returnProductCreation = await productFixture.CreateProductInDBContext(dbContex, mapper, productFixture.GetValidCreateProductCommandWithAllData());
-            var modifyProductCommand = productFixture.GetValidModifyProductCommandWithAllData(returnProductCreation.Id);
 
             IProductAppRepository repsitory = new ProductRepository(dbContex, mapper);
+            ICreateProductService createProductService = new CreateProductService(dbContex, repsitory);
+
+            var returnProductCreation = await createProductService.Execute(productFixture.GetValidCreateProductCommandWithAllData(), CancellationToken.None);
+            var modifyProductCommand = productFixture.GetValidModifyProductCommandWithAllData(returnProductCreation.Id);
+
             IModifyProductService modifyProductService = new ModifyProductService(dbContex, repsitory);
 
             await modifyProductService.Execute(modifyProductCommand, CancellationToken.None);
@@ -55,9 +58,12 @@ namespace productManagement.tests.integration.application.services.product
         public async void ModificationExpectingEntityValidationException()
         {
             var dbContex = TestContextProductManagement.New();
-            IProductAppRepository repsitory = new ProductRepository(dbContex, mapper);
 
-            var returnProductCreation = await productFixture.CreateProductInDBContext(dbContex, mapper, productFixture.GetValidCreateProductCommandWithAllData());
+            IProductAppRepository repsitory = new ProductRepository(dbContex, mapper);
+            ICreateProductService createProductService = new CreateProductService(dbContex, repsitory);
+
+            var returnProductCreation = await createProductService.Execute(productFixture.GetValidCreateProductCommandWithAllData(), CancellationToken.None);
+
             var productCreated = await repsitory.GetById(returnProductCreation.Id, CancellationToken.None);
 
             IModifyProductService modifyProductService = new ModifyProductService(dbContex, repsitory);

@@ -2,22 +2,24 @@
 using FluentAssertions;
 using productManagement.application.input.seedWork.repository;
 using productManagement.application.input.services.product;
+using productManagement.application.input.services.product.dto;
 using productManagement.application.input.services.product.interfaces;
 using productManagement.domain.aggregates.product.validations;
 using productManagement.domain.shared.enumeration;
 using productManagement.domain.shared.seedWork.exceptions;
 using productManagement.infra.data.input.aggregates;
 using productManagement.tests.common.fixture;
+using productManagement.tests.integration.common;
 
 namespace productManagement.tests.integration.application.services.product
 {
     public class InactivateProductTest
     {
         private readonly ProductFixture productFixture;
-        private readonly IDbContext dbContext;
+        private readonly TestContextProductManagement dbContext;
         private readonly IMapper mapper;
 
-        public InactivateProductTest(IDbContext dbContext, IMapper mapper)
+        public InactivateProductTest(TestContextProductManagement dbContext, IMapper mapper)
         {
             productFixture = new ProductFixture();
             this.dbContext = dbContext;
@@ -28,10 +30,11 @@ namespace productManagement.tests.integration.application.services.product
         [Trait("Apliccation", "Service - Product")]
         public async void ValidInactivateProductTest()
         {
-            //var dbContext = TestContextProductManagement.New();
             IProductAppRepository repsitory = new ProductRepository(dbContext, mapper);
+            ICreateProductService createProductService = new CreateProductService(dbContext, repsitory);
 
-            var returnProductCreation = await productFixture.CreateProductInDBContext(dbContext, mapper, productFixture.GetValidCreateProductCommandWithAllData());
+            var returnProductCreation = await createProductService.Execute(productFixture.GetValidCreateProductCommandWithAllData(), CancellationToken.None);
+
             var productCreated = await repsitory.GetById(returnProductCreation.Id, CancellationToken.None);
 
             IInactivateProductService inactivateProductService = new InactivateProductService(dbContext, repsitory);
@@ -53,10 +56,10 @@ namespace productManagement.tests.integration.application.services.product
         [Trait("Apliccation", "Service - Product")]
         public async void InactivateExpectingEntityValidationException()
         {
-            //var dbContext = TestContextProductManagement.New();
             IProductAppRepository repsitory = new ProductRepository(dbContext, mapper);
 
-            var returnProductCreation = await productFixture.CreateProductInDBContext(dbContext, mapper, productFixture.GetValidCreateProductCommandWithAllData());
+            ICreateProductService createProductService = new CreateProductService(dbContext, repsitory);
+            var returnProductCreation = await createProductService.Execute(productFixture.GetValidCreateProductCommandWithAllData(), CancellationToken.None);
             var productCreated = await repsitory.GetById(returnProductCreation.Id, CancellationToken.None);
 
             IInactivateProductService inactivateProductService = new InactivateProductService(dbContext, repsitory);

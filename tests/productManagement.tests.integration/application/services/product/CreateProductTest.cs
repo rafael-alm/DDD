@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using productManagement.application.input.seedWork.repository;
 using productManagement.application.input.services.product;
 using productManagement.application.input.services.product.interfaces;
 using productManagement.domain.aggregates.product.commands;
@@ -15,11 +17,13 @@ namespace productManagement.tests.integration.application.services.product
     public class CreateProductTest
     {
         private readonly ProductFixture productFixture;
+        private readonly TestContextProductManagement dbContext;
         private readonly IMapper mapper;
 
-        public CreateProductTest(IMapper mapper)
+        public CreateProductTest(TestContextProductManagement context, IMapper mapper)
         {
             productFixture = new ProductFixture();
+            this.dbContext = context;
             this.mapper = mapper;
         }
 
@@ -52,10 +56,12 @@ namespace productManagement.tests.integration.application.services.product
         [Trait("Apliccation", "Service - Product")]
         public async void ValidCreationOfAllData()
         {
-            var dbContex = TestContextProductManagement.New();
             var validCreateProductCommand = productFixture.GetValidCreateProductCommandWithAllData();
-            var returnProductCreation = await productFixture.CreateProductInDBContext(dbContex, mapper, validCreateProductCommand);
-            IProductAppRepository repsitory = new ProductRepository(dbContex, mapper);
+
+            IProductAppRepository repsitory = new ProductRepository(dbContext, mapper);
+            ICreateProductService createProductService = new CreateProductService(dbContext, repsitory);
+
+            var returnProductCreation = await createProductService.Execute(validCreateProductCommand, CancellationToken.None);
 
             returnProductCreation.Id.Should().NotBeEmpty();
             returnProductCreation.Id.Should().NotBe("00000000-0000-0000-0000-000000000000");
