@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>productManagement.application.input</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\projectName.domain.shared\projectName.domain.shared.csproj" />
+    <ProjectReference Include="..\projectName.domain\projectName.domain.csproj" />
+  </ItemGroup>
+
+</Project>
